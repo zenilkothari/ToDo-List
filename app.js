@@ -2,9 +2,30 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const _ = require("lodash");
+const RSA = require("hybrid-crypto-js").RSA;
+const Crypt = require("hybrid-crypto-js").Crypt;
+
+// var publicKey;
+// var privateKey;
+// function generateKeys() {
+//   var rsa = new RSA();
+//   rsa.generateKeyPair(function(keyPair) {
+//       publicKey = keyPair.publicKey;
+//       privateKey = keyPair.privateKey;
+//   });
+//   setTimeout(function () {
+//     console.log('publicKey', publicKey);
+//     console.log('privateKey', privateKey);
+//   }, 3000);
+// }
+
+// generateKeys();
+
+let crypt = new Crypt();
 
 // Env variables
 require('dotenv').config();
+const privatekey = process.env.PRIVATEKEY;
 
 const app = express();
 
@@ -15,7 +36,7 @@ app.use(express.static("public"));
 
 //mongoose.connect("mongodb+srv://user:pass@mycluster.mdt5xzz.mongodb.net/ToDoList?retryWrites=true&w=majority", {useNewUrlParser: true});
 
-const dbURI = process.env.DBURI;
+const dbURI = "mongodb+srv://zenil:zenil@mycluster.mdt5xzz.mongodb.net/ToDoList?retryWrites=true&w=majority";
 mongoose
   .connect(dbURI, { useNewUrlParser: true })
   .then(() => {
@@ -100,7 +121,7 @@ app.get("/:customListName", function(req, res){
 
 app.post("/", function(req, res){
 
-  const itemName = req.body.newItem;
+  const itemName = crypt.decrypt(privatekey, req.body.newItem).message;
   const listName = req.body.list;
 
   const item = new Item({

@@ -11,9 +11,11 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "dotenv": "^16.0.3",
-    "ejs": "^2.6.1",
+    "ejs": "^3.1.9",
     "express": "^4.16.3",
+    "hybrid-crypto-js": "^0.2.4",
     "lodash": "^4.17.11",
-    "mongoose": "^5.3.4"
+    "mongoose": "^5.3.4",
+    "nodemon": "^3.0.2"
   }
 }

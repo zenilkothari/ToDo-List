@@ -19,9 +19,10 @@
   <%  }) %>
 
 
-      <form class="item" action="/" method="post">
-        <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
-        <button type="submit" name="list" value="<%= listTitle %>">+</button>
+      <form class="item" id="myForm" action="/" method="post">
+        <input type="text" id="newItem" name="newItem" placeholder="New Item" autocomplete="off">
+        <input type="hidden" name="list" value="<%= listTitle %>"></input>
+        <button type="button" id="list" onclick="myClick(event)" name="list" value="<%= listTitle %>">+</button>
       </form>
   </div>
 
